@@ -346,4 +346,4 @@ ORDER BY supplier_revenue DESC;
 
 Dashboard poskytuje jasný a zrozumiteľný pohľad na obchodné dáta, čo umožňuje lepšie rozhodovanie, plánovanie a optimalizáciu procesov.
 
-**Autor:** ukas SutkaL
+**Autor:** Lukáš Šutka
