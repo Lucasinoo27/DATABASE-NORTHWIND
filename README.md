@@ -89,7 +89,7 @@ Transformácia dát zahŕňala čistenie, obohacovanie a prípravu dimenzií a f
 
 Typ SCD: **Typ 0**
 
-Táto dimenzia uchováva informácie o dátumoch objednávok. Obsahuje odvodené údaje ako deň, mesiac, rok a typ dňa (pracovný deň alebo víkend). Používame Typ 0, pretože dátumové údaje sú statické a nemenia sa. (Overwrite bez histórie)
+Táto dimenzia uchováva informácie o dátumoch objednávok. Obsahuje odvodené údaje ako deň, mesiac, rok a typ dňa (pracovný deň alebo víkend). Používame Typ 0, pretože dátumové údaje sú statické a nemenia sa.
 
 ```sql
 CREATE OR REPLACE TABLE DIM_DATE AS
