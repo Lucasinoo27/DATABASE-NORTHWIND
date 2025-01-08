@@ -346,4 +346,20 @@ ORDER BY supplier_revenue DESC;
 
 Dashboard poskytuje jasný a zrozumiteľný pohľad na obchodné dáta, čo umožňuje lepšie rozhodovanie, plánovanie a optimalizáciu procesov.
 
+### Záver
+
+Implementácia ETL procesu pre dataset **Northwind** v **Snowflake** demonštruje efektívny spôsob spracovania a transformácie obchodných údajov na analytický model. Výsledný hviezdicový model umožňuje jednoduchú analýzu a poskytuje hodnotné informácie o predajoch, zákazníkoch, zamestnancoch a produktoch.
+
+Projekt prináša tieto hlavné výhody:
+
+- **Optimalizácia dát** pre multidimenzionálnu analýzu a vizualizácie.
+- **Zvýšená efektivita** pri identifikácii kľúčových obchodných metrík, ako sú najpredávanejšie produkty, sezónne trendy a výkonnosť zamestnancov.
+- **Lepšie pochopenie** geografických trendov a výkonnosti dodávateľov.
+
+Vizualizácie vytvorené na základe tohto modelu poskytujú jasný a intuitívny pohľad na obchodné dáta, čo zjednodušuje strategické rozhodovanie a plánovanie.
+
+Tento projekt zároveň ukazuje praktické využitie **Snowflake** na moderné spracovanie dát a jeho schopnosti pri riešení výziev spojených s ETL procesmi.
+
+Ďakujem za váš záujem a čas venovaný tomuto projektu.
+
 **Autor:** Lukáš Šutka
