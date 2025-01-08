@@ -195,6 +195,7 @@ FROM shippers_staging;
 #### Dimenzia `DIM_CATEGORIES`
 
 Typ SCD: **Typ 2** 
+
 Táto dimenzia uchováva informácie o kategóriách produktov, vrátane ich názvu a popisu. Používame Typ 2, aby sme mohli sledovať zmeny v názvoch alebo popisoch kategórií.
 
 ```sql
