@@ -47,7 +47,7 @@ Navrhnutý bol **hviezdicový model (star schema)**, ktorý umožňuje efektívn
 - **`dim_suppliers`**: Dodávatelia produktov s ich lokalitami.
 - **`dim_shippers`**: Detaily prepravcov zapojených do doručenia objednávok.
 - **`dim_date`**: Kalendárne údaje o objednávkach (deň, mesiac, rok).
-- **`dim_time`**: Časové údaje (hodiny, AM/PM).
+- **`dim_categories`**: Detaily kategórií.
 
 Model umožňuje jednoduché spojenie faktovej tabuľky s dimenziami, čím sa zlepšuje interpretácia a rýchlosť analýz.
 
