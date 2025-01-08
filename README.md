@@ -86,7 +86,10 @@ Tento postup bol zopakovaný pre všetky zdrojové tabuľky, čím sa zabezpeči
 Transformácia dát zahŕňala čistenie, obohacovanie a prípravu dimenzií a faktovej tabuľky. Nasledujúce kroky ukazujú, ako boli vytvorené jednotlivé dimenzie a faktová tabuľka:
 
 #### Dimenzia `DIM_DATE`
-Táto dimenzia uchováva informácie o dátumoch objednávok. Obsahuje odvodené údaje ako deň, mesiac, rok a typ dňa (pracovný deň alebo víkend):
+
+Typ SCD: **Typ 0**
+
+Táto dimenzia uchováva informácie o dátumoch objednávok. Obsahuje odvodené údaje ako deň, mesiac, rok a typ dňa (pracovný deň alebo víkend). Používame Typ 0, pretože dátumové údaje sú statické a nemenia sa. (Overwrite bez histórie)
 
 ```sql
 CREATE OR REPLACE TABLE DIM_DATE AS
@@ -103,7 +106,108 @@ SELECT DISTINCT
 FROM orders_staging;
 ```
 
+#### Dimenzia `DIM_SUPPLIERS`
+
+Typ SCD: **Typ 2**
+
+Táto dimenzia uchováva informácie o dodávateľoch, vrátane ich mena, kontaktných údajov a krajiny. Používame Typ 2, aby sme mohli sledovať zmeny ako napríklad aktualizácie kontaktných údajov alebo miesta pôsobenia.
+
+```sql
+CREATE OR REPLACE TABLE DIM_SUPPLIERS AS
+SELECT DISTINCT
+    SupplierID AS dim_supplierID,
+    SupplierName AS supplier_name,
+    ContactName AS contact_name,
+    City AS city,
+    Country AS country,
+    Phone AS phone
+FROM suppliers_staging;
+```
+
+#### Dimenzia `DIM_PRODUCTS`
+
+Typ SCD: **Typ 2**
+
+Táto dimenzia uchováva informácie o produktoch, vrátane ich kategórie, jednotky a ceny. Používame Typ 2, aby sme mohli sledovať zmeny cien alebo iných údajov o produktoch.
+
+```sql
+CREATE OR REPLACE TABLE DIM_PRODUCTS AS
+SELECT DISTINCT
+    ProductID AS dim_productID,
+    ProductName AS product_name,
+    CategoryID AS category_id,
+    Unit AS unit,
+    Price AS price
+FROM products_staging;
+```
+
+#### Dimenzia `DIM_CUSTOMERS`
+
+Typ SCD: **Typ 2**
+
+Táto dimenzia uchováva informácie o zákazníkoch, vrátane ich mena, kontaktných údajov a adresy. Používame Typ 2, aby sme mohli sledovať históriu zmien ako zmena adresy alebo kontaktných údajov.
+
+```sql
+CREATE OR REPLACE TABLE DIM_CUSTOMERS AS
+SELECT DISTINCT
+    CustomerID AS dim_customerID,
+    CustomerName AS customer_name,
+    ContactName AS contact_name,
+    City AS city,
+    Country AS country,
+    PostalCode AS postal_code
+FROM customers_staging;
+```
+
+#### Dimenzia `DIM_EMPLOYEES`
+
+Typ SCD: **Typ 2**
+
+Táto dimenzia uchováva informácie o zamestnancoch, vrátane ich mena, dátumu narodenia a poznámok. Používame Typ 2, aby sme mohli sledovať zmeny ako napríklad zmenu mena alebo poznámok.
+
+```sql
+CREATE OR REPLACE TABLE DIM_EMPLOYEES AS
+SELECT DISTINCT
+    EmployeeID AS dim_employeeID,
+    FirstName AS first_name,
+    LastName AS last_name,
+    BirthDate AS birth_date,
+    Photo AS photo,
+    Notes AS notes
+FROM employees_staging;
+```
+
+#### Dimenzia `DIM_SHIPPERS`
+
+Typ SCD: **Typ 1**
+
+Táto dimenzia uchováva informácie o dopravcoch, vrátane ich mena a kontaktných údajov. Používame Typ 1, pretože zmeny údajov o dopravcoch, ako napríklad názov alebo telefónne číslo, nie sú historicky sledované.
+
+```sql
+CREATE OR REPLACE TABLE DIM_SHIPPERS AS
+SELECT DISTINCT
+    ShipperID AS dim_shipperID,
+    ShipperName AS shipper_name,
+    Phone AS phone
+FROM shippers_staging;
+```
+
+#### Dimenzia `DIM_CATEGORIES`
+
+Typ SCD: **Typ 2** 
+Táto dimenzia uchováva informácie o kategóriách produktov, vrátane ich názvu a popisu. Používame Typ 2, aby sme mohli sledovať zmeny v názvoch alebo popisoch kategórií.
+
+```sql
+CREATE OR REPLACE TABLE DIM_CATEGORIES AS
+SELECT DISTINCT
+    CategoryID AS dim_categoryID,
+    CategoryName AS category_name,
+    Description AS description
+FROM categories_staging;
+```
+
 #### Faktová tabuľka `FACT_ORDERS`
+
 Táto tabuľka obsahuje kľúčové metriky a prepojenia na dimenzie:
 
 ```sql
@@ -129,7 +233,7 @@ JOIN DIM_PRODUCTS p ON od.ProductID = p.dim_productID
 JOIN DIM_SUPPLIERS s ON p.category_id = s.dim_supplierID
 JOIN DIM_EMPLOYEES e ON o.EmployeeID = e.dim_employeeID
 JOIN DIM_SHIPPERS sh ON o.ShipperID = sh.dim_shipperID;
-```
+
 
 ### **3.3 Load (Načítanie dát)**
 
@@ -241,4 +345,4 @@ ORDER BY supplier_revenue DESC;
 
 Dashboard poskytuje jasný a zrozumiteľný pohľad na obchodné dáta, čo umožňuje lepšie rozhodovanie, plánovanie a optimalizáciu procesov.
 
-**Autor:** Lukas Sutka
+**Autor:** ukas SutkaL
